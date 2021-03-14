@@ -4,17 +4,18 @@ const origin = document.getElementsByClassName("origin")[0]
 const zoomed = document.getElementsByClassName("zoomed")[0]
 
 const originPos = {
-    x: 0,
-    y: 50
+    x: 50,
+    y: 100
 }
+
+const originImageSize = 150
+const zoomedImageSize = originImageSize * 6
 
 const zoomedPos = {
-    x: 200,
-    y: 50
+    x: originImageSize + originPos.x,
+    y: originPos.y/2
 }
 
-const originImageSize = 200
-const zoomedImageSize = 600
 
 origin.style.left = `${originPos.x}px`
 origin.style.top = `${originPos.y}px`
@@ -59,14 +60,13 @@ for (let r=0; r < rows; r++){
     squares.push(squareRow)
 }
 
-const visibleGap = 5
+const visibleGap = 3
 
 function handleMouseOver(e){
         let x =  e.clientX
         let y =  e.clientY
-        const hoveredRow = Math.ceil(y/squareSize)
-        const hoveredCol = Math.ceil(x/squareSize)
-        console.log('hoveredRow', hoveredRow, 'hoveredCol', hoveredCol)
+        const hoveredRow = Math.ceil((y - originPos.y)/squareSize)
+        const hoveredCol = Math.ceil((x - originPos.x)/squareSize)
         for (let r=0; r < rows; r++){
             for (let c=0; c < cols; c++){
                 if (r >= hoveredRow - visibleGap && r <= hoveredRow + visibleGap && c >= hoveredCol - visibleGap && c <= hoveredCol + visibleGap){
